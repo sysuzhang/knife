@@ -2,6 +2,7 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
+# Desc : 生成nginx用于网站访问认证的用户名与密码
 echo "====================================="
 echo "# A tool like htpasswd for Nginx    #"
 echo "#-----------------------------------#"
