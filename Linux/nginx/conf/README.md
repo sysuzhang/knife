@@ -1,1 +1,1 @@
-1. proxy.rongjie.net.conf : 万能反向代理翻墙利器
+1. proxy.rongjie.net.conf : 涓囪兘鍙嶅悜浠ｇ悊缈诲鍒╁櫒
