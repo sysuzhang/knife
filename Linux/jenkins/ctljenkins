@@ -1,0 +1,46 @@
+#!/bin/sh
+##变量设置
+DESC="Jenkins CI Server"
+NAME=jenkins
+RUN_AS=jenkins
+JENKINS_DIR=/data/jenkins
+JENKINS_HOME=/data/jenkins/home
+PIDFILE=$JENKINS_DIR/$NAME.pid
+PORT=8383
+PREFIX=/jenkins
+export JENKINS_HOME=$JENKINS_HOME
+
+d_start() {
+	nohup java -jar $JENKINS_DIR/jenkins.war --httpPort=$PORT --ajp13Port=-1 --prefix=$PREFIX >/$JENKINS_DIR/logs/logs.log 2>&1 &
+        echo $! > "${PIDFILE}"  
+}
+
+d_stop() {
+	jenkins_id=`cat "$PIDFILE"`
+        kill $jenkins_id
+	if [ -e $PIDFILE ] && [ $? -eq 0 ]
+		then rm $PIDFILE
+	fi
+}
+
+case $1 in
+	start)
+	echo "Starting $DESC: $NAME."
+	d_start
+	;;
+	stop)
+	echo  "Stopping $DESC: $NAME."
+	d_stop
+	;;
+	restart)
+	echo -n "Restarting $DESC: $NAME"
+	d_stop
+	sleep 1
+	d_start
+	;;
+	*)
+	echo "usage: $NAME {start|stop|restart}"
+	exit 1
+	;;
+esac
+exit 0
